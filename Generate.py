@@ -11,17 +11,19 @@ class ImageGen:
     def __init__(self) -> None:
         self.client_id = str(uuid.uuid4())
         self.server_address = "127.0.0.1:8188"
-        with open("workflow_api.json", "r", encoding="utf-8") as f:
+        with open("shoe_workflow_api.json", "r", encoding="utf-8") as f:
                 self.prompt_text = f.read()
 
     def Genarate(self, Prompt: str):
          
         prompt = json.loads(self.prompt_text)
         seed = random.randint(99, 999999999999)
-
-        prompt["23"]["inputs"]["seed"] = seed
-        prompt["28"]["inputs"]["seed"] = seed
-        prompt["29"]["inputs"]["seed"] = seed
+        print(Prompt)
+        print(prompt["5"]["inputs"]["text"])
+        prompt["5"]["inputs"]["text"] += Prompt
+        print(prompt["5"]["inputs"]["text"])
+        prompt["1"]["inputs"]["seed"] = seed
+        prompt["18"]["inputs"]["seed"] = seed
 
 
         ws = websocket.WebSocket()
