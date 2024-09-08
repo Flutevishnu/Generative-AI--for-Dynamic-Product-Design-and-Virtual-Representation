@@ -11,13 +11,17 @@ class ImageGen:
     def __init__(self) -> None:
         self.client_id = str(uuid.uuid4())
         self.server_address = "127.0.0.1:8188"
-        with open("shoe_workflow_api.json", "r", encoding="utf-8") as f:
+        with open("miniprojectworkflow_api.json", "r", encoding="utf-8") as f:
                 self.prompt_text = f.read()
 
-    def Genarate(self, Prompt: str):
+    def Genarate(self, Prompt: str, base64_image=''):
+
          
         prompt = json.loads(self.prompt_text)
         seed = random.randint(99, 999999999999)
+
+        if base64_image != '':
+            prompt["45"]["inputs"]["image"] = base64_image
         print(Prompt)
         print(prompt["5"]["inputs"]["text"])
         prompt["5"]["inputs"]["text"] += Prompt
