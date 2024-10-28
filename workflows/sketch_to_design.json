@@ -1,0 +1,298 @@
+{
+  "248": {
+    "inputs": {
+      "ckpt_name": "juggernautXL_juggXIByRundiffusion.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "249": {
+    "inputs": {
+      "scale": 0.5,
+      "blur_sigma": 2,
+      "model": [
+        "248",
+        0
+      ]
+    },
+    "class_type": "SelfAttentionGuidance",
+    "_meta": {
+      "title": "Self-Attention Guidance"
+    }
+  },
+  "250": {
+    "inputs": {
+      "model": [
+        "249",
+        0
+      ]
+    },
+    "class_type": "DifferentialDiffusion",
+    "_meta": {
+      "title": "Differential Diffusion"
+    }
+  },
+  "256": {
+    "inputs": {
+      "seed": 516014994369108,
+      "steps": 35,
+      "cfg": 7,
+      "sampler_name": "dpmpp_sde_gpu",
+      "scheduler": "exponential",
+      "denoise": 0.75,
+      "model": [
+        "263",
+        0
+      ],
+      "positive": [
+        "266",
+        0
+      ],
+      "negative": [
+        "269",
+        0
+      ],
+      "latent_image": [
+        "276",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "257": {
+    "inputs": {
+      "samples": [
+        "256",
+        0
+      ],
+      "vae": [
+        "248",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "258": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "257",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "263": {
+    "inputs": {
+      "model": [
+        "250",
+        0
+      ],
+      "clip": [
+        "248",
+        1
+      ],
+      "lora_stack": [
+        "264",
+        0
+      ]
+    },
+    "class_type": "CR Apply LoRA Stack",
+    "_meta": {
+      "title": "💊 CR Apply LoRA Stack"
+    }
+  },
+  "264": {
+    "inputs": {
+      "exclusive_mode": "Off",
+      "stride": 1,
+      "force_randomize_after_stride": "On",
+      "lora_name_1": "TShirtDesignRedmondV2-Tshirtdesign-TshirtDesignAF.safetensors",
+      "switch_1": "Off",
+      "chance_1": 1,
+      "model_weight_1": 1,
+      "clip_weight_1": 1,
+      "lora_name_2": "None",
+      "switch_2": "Off",
+      "chance_2": 1,
+      "model_weight_2": 1,
+      "clip_weight_2": 1,
+      "lora_name_3": "None",
+      "switch_3": "Off",
+      "chance_3": 1,
+      "model_weight_3": 1,
+      "clip_weight_3": 1
+    },
+    "class_type": "CR Random LoRA Stack",
+    "_meta": {
+      "title": "💊 CR Random LoRA Stack"
+    }
+  },
+  "266": {
+    "inputs": {
+      "width": 4096,
+      "height": 4096,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 4096,
+      "target_height": 4096,
+      "text_g": [
+        "268",
+        0
+      ],
+      "text_l": [
+        "268",
+        0
+      ],
+      "clip": [
+        "263",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncodeSDXL",
+    "_meta": {
+      "title": "CLIPTextEncodeSDXL"
+    }
+  },
+  "268": {
+    "inputs": {
+      "text_positive": [
+        "277",
+        0
+      ],
+      "text_negative": "bad art, ugly, deformed, watermark, duplicated,",
+      "style": "enhance",
+      "log_prompt": "No",
+      "style_name": ""
+    },
+    "class_type": "SDXLPromptStyler",
+    "_meta": {
+      "title": "SDXL Prompt Styler"
+    }
+  },
+  "269": {
+    "inputs": {
+      "width": 4096,
+      "height": 4096,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 4096,
+      "target_height": 4096,
+      "text_g": [
+        "268",
+        1
+      ],
+      "text_l": [
+        "268",
+        1
+      ],
+      "clip": [
+        "263",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncodeSDXL",
+    "_meta": {
+      "title": "CLIPTextEncodeSDXL"
+    }
+  },
+  "275": {
+    "inputs": {
+      "image": ""
+    },
+    "class_type": "ETN_LoadImageBase64",
+    "_meta": {
+      "title": "Load Image (Base64)"
+    }
+  },
+  "276": {
+    "inputs": {
+      "pixels": [
+        "279",
+        0
+      ],
+      "vae": [
+        "248",
+        2
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE Encode"
+    }
+  },
+  "277": {
+    "inputs": {
+      "action": "append",
+      "tidy_tags": "yes",
+      "text_a": [
+        "280",
+        0
+      ],
+      "text_b": "",
+      "text_c": "",
+      "result": "outdoors, sky, day, cloud, water, tree, blue_sky, no_humans, bird, traditional_media, nature, scenery, forest, mountain, landscape, lake, mountain, river running towards mountain, trees"
+    },
+    "class_type": "StringFunction|pysssss",
+    "_meta": {
+      "title": "String Function 🐍"
+    }
+  },
+  "279": {
+    "inputs": {
+      "upscale_method": "nearest-exact",
+      "width": 1024,
+      "height": 1024,
+      "crop": "center",
+      "image": [
+        "275",
+        0
+      ]
+    },
+    "class_type": "ImageScale",
+    "_meta": {
+      "title": "Upscale Image"
+    }
+  },
+  "280": {
+    "inputs": {
+      "model": "wd-v1-4-moat-tagger-v2",
+      "threshold": 0.35,
+      "character_threshold": 0.85,
+      "replace_underscore": false,
+      "trailing_comma": false,
+      "exclude_tags": "",
+      "tags": "outdoors, sky, day, cloud, water, tree, blue_sky, no_humans, bird, traditional_media, nature, scenery, forest, mountain, landscape, lake",
+      "image": [
+        "279",
+        0
+      ]
+    },
+    "class_type": "WD14Tagger|pysssss",
+    "_meta": {
+      "title": "WD14 Tagger 🐍"
+    }
+  },
+  "281": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "batch_size": 1
+    },
+    "class_type": "EmptyLatentImage",
+    "_meta": {
+      "title": "Empty Latent Image"
+    }
+  }
+}

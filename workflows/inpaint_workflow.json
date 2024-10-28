@@ -1,0 +1,292 @@
+{
+  "248": {
+    "inputs": {
+      "ckpt_name": "juggernautXL_juggXIByRundiffusion.safetensors"
+    },
+    "class_type": "CheckpointLoaderSimple",
+    "_meta": {
+      "title": "Load Checkpoint"
+    }
+  },
+  "249": {
+    "inputs": {
+      "scale": 0.5,
+      "blur_sigma": 2,
+      "model": [
+        "248",
+        0
+      ]
+    },
+    "class_type": "SelfAttentionGuidance",
+    "_meta": {
+      "title": "Self-Attention Guidance"
+    }
+  },
+  "250": {
+    "inputs": {
+      "model": [
+        "249",
+        0
+      ]
+    },
+    "class_type": "DifferentialDiffusion",
+    "_meta": {
+      "title": "Differential Diffusion"
+    }
+  },
+  "256": {
+    "inputs": {
+      "seed": 576149989069888,
+      "steps": 35,
+      "cfg": 7,
+      "sampler_name": "dpm_2",
+      "scheduler": "karras",
+      "denoise": 1,
+      "model": [
+        "259",
+        0
+      ],
+      "positive": [
+        "266",
+        0
+      ],
+      "negative": [
+        "269",
+        0
+      ],
+      "latent_image": [
+        "261",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler"
+    }
+  },
+  "257": {
+    "inputs": {
+      "samples": [
+        "256",
+        0
+      ],
+      "vae": [
+        "248",
+        2
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "258": {
+    "inputs": {
+      "filename_prefix": "ComfyUI",
+      "images": [
+        "257",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "259": {
+    "inputs": {
+      "model": [
+        "263",
+        0
+      ],
+      "patch": [
+        "260",
+        0
+      ],
+      "latent": [
+        "261",
+        0
+      ]
+    },
+    "class_type": "INPAINT_ApplyFooocusInpaint",
+    "_meta": {
+      "title": "Apply Fooocus Inpaint"
+    }
+  },
+  "260": {
+    "inputs": {
+      "head": "fooocus_inpaint_head.pth",
+      "patch": "inpaint_v26.fooocus.patch"
+    },
+    "class_type": "INPAINT_LoadFooocusInpaint",
+    "_meta": {
+      "title": "Load Fooocus Inpaint"
+    }
+  },
+  "261": {
+    "inputs": {
+      "grow_mask_by": 8,
+      "pixels": [
+        "265",
+        0
+      ],
+      "vae": [
+        "248",
+        2
+      ],
+      "mask": [
+        "274",
+        0
+      ]
+    },
+    "class_type": "VAEEncodeForInpaint",
+    "_meta": {
+      "title": "VAE Encode (for Inpainting)"
+    }
+  },
+  "263": {
+    "inputs": {
+      "model": [
+        "250",
+        0
+      ],
+      "clip": [
+        "248",
+        1
+      ],
+      "lora_stack": [
+        "264",
+        0
+      ]
+    },
+    "class_type": "CR Apply LoRA Stack",
+    "_meta": {
+      "title": "💊 CR Apply LoRA Stack"
+    }
+  },
+  "264": {
+    "inputs": {
+      "exclusive_mode": "Off",
+      "stride": 1,
+      "force_randomize_after_stride": "On",
+      "lora_name_1": "last.safetensors",
+      "switch_1": "Off",
+      "chance_1": 1,
+      "model_weight_1": 1,
+      "clip_weight_1": 1,
+      "lora_name_2": "None",
+      "switch_2": "Off",
+      "chance_2": 1,
+      "model_weight_2": 1,
+      "clip_weight_2": 1,
+      "lora_name_3": "None",
+      "switch_3": "Off",
+      "chance_3": 1,
+      "model_weight_3": 1,
+      "clip_weight_3": 1
+    },
+    "class_type": "CR Random LoRA Stack",
+    "_meta": {
+      "title": "💊 CR Random LoRA Stack"
+    }
+  },
+  "265": {
+    "inputs": {
+      "image": ""
+    },
+    "class_type": "ETN_LoadImageBase64",
+    "_meta": {
+      "title": "Load Image (Base64)"
+    }
+  },
+  "266": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 1024,
+      "target_height": 1024,
+      "text_g": [
+        "268",
+        0
+      ],
+      "text_l": [
+        "268",
+        0
+      ],
+      "clip": [
+        "263",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncodeSDXL",
+    "_meta": {
+      "title": "CLIPTextEncodeSDXL"
+    }
+  },
+  "268": {
+    "inputs": {
+      "text_positive": [
+        "271",
+        0
+      ],
+      "text_negative": "bad art, ugly, deformed, watermark, duplicated,",
+      "style": "base",
+      "log_prompt": "No",
+      "style_name": ""
+    },
+    "class_type": "SDXLPromptStyler",
+    "_meta": {
+      "title": "SDXL Prompt Styler"
+    }
+  },
+  "269": {
+    "inputs": {
+      "width": 1024,
+      "height": 1024,
+      "crop_w": 0,
+      "crop_h": 0,
+      "target_width": 1024,
+      "target_height": 1024,
+      "text_g": [
+        "268",
+        1
+      ],
+      "text_l": [
+        "268",
+        1
+      ],
+      "clip": [
+        "263",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncodeSDXL",
+    "_meta": {
+      "title": "CLIPTextEncodeSDXL"
+    }
+  },
+  "271": {
+    "inputs": {
+      "action": "append",
+      "tidy_tags": "yes",
+      "text_a": "",
+      "text_b": "",
+      "text_c": ""
+    },
+    "class_type": "StringFunction|pysssss",
+    "_meta": {
+      "title": "String Function 🐍"
+    }
+  },
+  "274": {
+    "inputs": {
+      "mask": ""
+    },
+    "class_type": "ETN_LoadMaskBase64",
+    "_meta": {
+      "title": "Load Mask (Base64)"
+    }
+  }
+}

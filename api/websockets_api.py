@@ -44,8 +44,9 @@ def get_images(ws, client_id, prompt):
     for o in history['outputs']:
         for node_id in history['outputs']:
             node_output = history['outputs'][node_id]
+            images_output = []
             if 'images' in node_output:
-                images_output = []
+                
                 for image in node_output['images']:
                     image_data = get_image(image['filename'], image['subfolder'], image['type'])
                     images_output.append(image_data)

@@ -40,7 +40,7 @@
   },
   "5": {
     "inputs": {
-      "text": "<lora:shoes:1>",
+      "text": "<lora:shoes:1>, white_background",
       "clip": [
         "40",
         1
@@ -97,7 +97,7 @@
   "13": {
     "inputs": {
       "width": 1600,
-      "height": 512,
+      "height": 728,
       "batch_size": 1
     },
     "class_type": "EmptyLatentImage",
